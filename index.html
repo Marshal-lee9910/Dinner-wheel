@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#fbf8f1">
+  <title>今晚吃什么？五人清淡饭局</title>
+  <link rel="stylesheet" href="style.css">
+  <style>.primary-button:disabled{background:#2f7d4a;border-color:#2f7d4a;box-shadow:none;opacity:.42}</style>
+</head>
+<body>
+  <a class="skip-link" href="#app">跳到主要内容</a>
+  <main id="app" class="phone-shell">
+    <header class="app-header">
+      <div>
+        <h1>今晚吃什么？</h1>
+        <p>五人清淡饭局</p>
+      </div>
+      <nav class="mode-switch" aria-label="使用模式">
+        <button id="participantTab" class="mode-tab is-active" type="button">我要选择</button>
+        <button id="hostTab" class="mode-tab" type="button">主持汇总 <span id="hostCountBadge">0</span></button>
+      </nav>
+    </header>
+
+    <section id="participantView" class="view is-visible" aria-labelledby="participantTitle">
+      <ol class="mini-steps" aria-label="个人选择步骤">
+        <li class="is-active"><span>1</span>选身份</li><li><span>2</span>选口味</li><li><span>3</span>转一次</li><li><span>4</span>发结果</li>
+      </ol>
+
+      <div class="intro-row">
+        <div><p class="kicker">YOUR TURN</p><h2 id="participantTitle">先告诉命运你是谁</h2></div>
+        <label class="budget-pill">预算 S$<input id="budgetInput" type="number" value="50" min="15" max="100" aria-label="人均预算"></label>
+      </div>
+
+      <div id="friendPicker" class="choice-row" aria-label="选择你的名字"></div>
+
+      <fieldset class="mood-fieldset">
+        <legend>今晚想吃什么？</legend>
+        <div id="moodPicker" class="mood-grid"></div>
+      </fieldset>
+
+      <div class="wheel-stage">
+        <canvas id="personalWheel" width="720" height="720" aria-label="清淡餐厅候选转盘"></canvas>
+        <div class="wheel-budget"><small>人均预算</small><strong id="wheelBudget">S$50</strong></div>
+      </div>
+
+      <button id="spinButton" class="primary-button" type="button" disabled>选好名字和口味再转</button>
+      <p id="spinHint" class="hint" aria-live="polite">每个人只需要完成自己这一转。</p>
+
+      <article id="personalResult" class="result-sheet" hidden>
+        <p class="kicker">YOUR RESULT</p>
+        <h2 id="personalResultTitle"></h2>
+        <div id="personalResultMeta" class="result-meta"></div>
+        <p class="share-explain">把结果链接发给主人；主人每打开一个链接，就会自动收下一份结果。</p>
+        <label class="code-box"><span>个人结果码</span><textarea id="resultCode" rows="3" readonly></textarea></label>
+        <div class="result-actions">
+          <button id="copyLinkButton" class="primary-button" type="button">复制结果链接</button>
+          <button id="copyCodeButton" class="secondary-button" type="button">复制结果码</button>
+        </div>
+      </article>
+
+      <details class="restaurant-drawer">
+        <summary><span>10 家清淡候选餐厅</span><span>查看</span></summary>
+        <div id="restaurantList" class="restaurant-list"></div>
+      </details>
+    </section>
+
+    <section id="hostView" class="view" aria-labelledby="hostTitle" hidden>
+      <div class="host-heading">
+        <div><p class="kicker">HOST MODE</p><h2 id="hostTitle">收集五个人的结果</h2></div>
+        <button id="resetHostButton" class="text-button" type="button">清空</button>
+      </div>
+      <p class="host-lead">让朋友把个人结果链接发给你。你在这台设备依次打开五个链接，结果会自动汇总。</p>
+
+      <div id="hostSlots" class="host-slots"></div>
+
+      <details class="manual-import">
+        <summary>也可以手动粘贴结果码</summary>
+        <label><span>结果码或结果链接</span><textarea id="importCode" rows="3" placeholder="粘贴一位朋友的结果码"></textarea></label>
+        <button id="importCodeButton" class="secondary-button" type="button">加入汇总</button>
+      </details>
+
+      <div class="final-area">
+        <div class="wheel-stage final-wheel-stage">
+          <canvas id="finalWheel" width="720" height="720" aria-label="五人最终饭店转盘"></canvas>
+          <div class="wheel-budget"><small>已收集</small><strong id="finalCount">0 / 5</strong></div>
+        </div>
+        <button id="finalSpinButton" class="primary-button" type="button" disabled>收齐五人后最终一转</button>
+        <p id="hostHint" class="hint" aria-live="polite">还差 5 份结果。</p>
+      </div>
+
+      <article id="finalResult" class="result-sheet final-result" hidden></article>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>
