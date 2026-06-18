@@ -509,7 +509,7 @@ function updateParticipantUI(){
 
  if(!selectedFriend) btn.textContent="先选择你的名字";
  else if(!selectedMood) btn.textContent="再选择今晚的口味";
- else btn.textContent=`${selectedFriend} 的命运一转`;
+ else btn.textContent=`${selectedFriend} 的个人一转`;
 }
 
 function getBudget(){
@@ -582,7 +582,7 @@ function spinPersonalWheel(){
  spinning=true;
  updateParticipantUI();
 
- $("#spinHint").textContent="正在从 30 家 Bugis / Chinatown 饭店里抽取 8 格命运转盘…";
+ $("#spinHint").textContent="正在从 30 家 Bugis / Chinatown 饭店里抽取 8 格个人转盘…";
 
  animateWheel(
   $("#personalWheel"),
@@ -768,7 +768,7 @@ function spinFinalWheel(){
  spinning=true;
  renderHostSlots();
 
- $("#hostHint").textContent="命运正在汇总五个人的提名…";
+ $("#hostHint").textContent="正在汇总五个人的提名…";
 
  animateWheel(
   $("#finalWheel"),
