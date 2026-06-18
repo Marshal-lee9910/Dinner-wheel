@@ -1,22 +1,223 @@
 "use strict";
 
 const FRIENDS=["Simin","Ziyin","Hongyan","Eric","Dawn"];
-const MOODS=["清淡一点","想喝汤 / 粥","面条 / 饺子","粤菜 / 点心","离 MRT 近","随便都可以"];
-const HOST_KEY="light-dinner-host-results-v1";
-const COLORS=["#dcebd9","#f5dfa0","#f4b49f","#cbdde5","#f1e5c4","#d9e6d2"];
-const restaurants=[
- {id:"crystal-jade-bugis",name:"Crystal Jade La Mian Xiao Long Bao",area:"Bugis Junction",mrt:"Bugis",cost:30,tags:["清淡一点","面条 / 饺子","离 MRT 近"],dishes:"小笼包、清汤拉面、蒸饺",weight:18},
- {id:"lenu-bugis",name:"LeNu Chef Wai’s Noodle Bar",area:"Bugis Junction",mrt:"Bugis",cost:24,tags:["清淡一点","想喝汤 / 粥","面条 / 饺子","离 MRT 近"],dishes:"猪骨汤面、清炖牛肉面、云吞",weight:17},
- {id:"yangs-dumplings",name:"Yang’s Dumplings",area:"Bugis Junction",mrt:"Bugis",cost:22,tags:["清淡一点","面条 / 饺子","离 MRT 近"],dishes:"生煎、蒸饺、清汤馄饨",weight:16},
- {id:"chin-chin",name:"Chin Chin Eating House",area:"Purvis Street",mrt:"Bugis / City Hall",cost:25,tags:["清淡一点","离 MRT 近"],dishes:"海南鸡、杂菜、豆腐、清汤",weight:16},
- {id:"soup-restaurant",name:"Soup Restaurant",area:"Suntec City",mrt:"Promenade / Esplanade",cost:35,tags:["清淡一点","想喝汤 / 粥","离 MRT 近"],dishes:"三水姜茸鸡、例汤、豆腐、时蔬",weight:18},
- {id:"putien-marina",name:"PUTIEN",area:"Marina Square",mrt:"Esplanade / City Hall",cost:38,tags:["清淡一点","想喝汤 / 粥","面条 / 饺子","离 MRT 近"],dishes:"兴化米粉、扁肉汤、蒸鱼、时蔬",weight:17},
- {id:"imperial-treasure-congee",name:"Imperial Treasure Noodle & Congee House",area:"Raffles City",mrt:"City Hall",cost:36,tags:["清淡一点","想喝汤 / 粥","面条 / 饺子","粤菜 / 点心","离 MRT 近"],dishes:"生滚粥、云吞面、蒸点心",weight:16},
- {id:"canton-paradise",name:"Canton Paradise",area:"Marina Bay / City Hall",mrt:"Bayfront / City Hall",cost:36,tags:["清淡一点","想喝汤 / 粥","粤菜 / 点心","离 MRT 近"],dishes:"白切鸡、例汤、蒸点心、粥",weight:15},
- {id:"din-tai-fung",name:"Din Tai Fung",area:"Raffles City",mrt:"City Hall",cost:35,tags:["清淡一点","面条 / 饺子","离 MRT 近"],dishes:"小笼包、菜肉蒸饺、鸡汤面",weight:18},
- {id:"yum-cha",name:"Yum Cha Restaurant",area:"Chinatown",mrt:"Chinatown",cost:32,tags:["清淡一点","想喝汤 / 粥","粤菜 / 点心","离 MRT 近"],dishes:"虾饺、烧卖、蒸排骨、粥",weight:15}
+
+const MOODS=[
+ "清淡一点",
+ "想喝汤 / 粥",
+ "面条 / 饺子",
+ "粤菜 / 点心",
+ "中餐 / 炒菜",
+ "椰子鸡 / 汤锅",
+ "泰国菜",
+ "越南菜",
+ "离 MRT 近",
+ "随便都可以"
 ];
 
+const HOST_KEY="light-dinner-host-results-v2";
+
+const COLORS=[
+ "#dcebd9",
+ "#f5dfa0",
+ "#f4b49f",
+ "#cbdde5",
+ "#f1e5c4",
+ "#d9e6d2"
+];
+
+const restaurants=[
+ {
+  id:"chin-chin",
+  name:"Chin Chin Eating House",
+  area:"Purvis Street / Bugis-City Hall",
+  mrt:"Bugis / City Hall",
+  cost:25,
+  tags:["清淡一点","中餐 / 炒菜","离 MRT 近"],
+  dishes:"海南鸡、杂菜、豆腐、猪扒、清汤",
+  weight:18
+ },
+ {
+  id:"yum-cha",
+  name:"Yum Cha Restaurant",
+  area:"Chinatown",
+  mrt:"Chinatown",
+  cost:32,
+  tags:["清淡一点","想喝汤 / 粥","粤菜 / 点心","中餐 / 炒菜","离 MRT 近"],
+  dishes:"虾饺、烧卖、蒸排骨、粥、肠粉",
+  weight:16
+ },
+ {
+  id:"seasons-coconut-chicken-bugis",
+  name:"Seasons Coconut Chicken 椰语四季",
+  area:"Bugis",
+  mrt:"Bugis",
+  cost:38,
+  tags:["椰子鸡 / 汤锅","中餐 / 炒菜","想喝汤 / 粥","清淡一点","离 MRT 近"],
+  dishes:"椰子鸡火锅、竹笙鸡汤、时蔬、豆腐",
+  weight:22
+ },
+ {
+  id:"three-coconuts-guoco-midtown",
+  name:"3-Coconut Guoco Midtown 三个椰子",
+  area:"Guoco Midtown / Bugis",
+  mrt:"Bugis",
+  cost:42,
+  tags:["椰子鸡 / 汤锅","中餐 / 炒菜","想喝汤 / 粥","清淡一点","离 MRT 近"],
+  dishes:"现砍椰子鸡、椰子汤底、蔬菜拼盘、菌菇",
+  weight:20
+ },
+ {
+  id:"yuanqi-yelin-chinatown",
+  name:"Coconut Chicken Hot Pot 元气椰林椰子鸡火锅",
+  area:"Mosque Street / Chinatown",
+  mrt:"Chinatown",
+  cost:42,
+  tags:["椰子鸡 / 汤锅","中餐 / 炒菜","想喝汤 / 粥","清淡一点","离 MRT 近"],
+  dishes:"招牌椰子鸡、竹荪鸡汤、腊味煲仔饭、时蔬",
+  weight:21
+ },
+ {
+  id:"fat-bird-bugis",
+  name:"Fat Bird Chicken Hotpot 胖胖鸡",
+  area:"Liang Seah Street / Bugis",
+  mrt:"Bugis",
+  cost:32,
+  tags:["中餐 / 炒菜","椰子鸡 / 汤锅","想喝汤 / 粥","离 MRT 近"],
+  dishes:"鸡公煲、麻辣鸡煲、姜蓉鸡煲、蔬菜和豆腐",
+  weight:20
+ },
+ {
+  id:"ai-shang-fish-hotpot",
+  name:"Ai Shang Fish Hotpot 爱尚鱼捞",
+  area:"Liang Seah Street / Bugis",
+  mrt:"Bugis",
+  cost:38,
+  tags:["中餐 / 炒菜","椰子鸡 / 汤锅","想喝汤 / 粥","离 MRT 近"],
+  dishes:"鱼火锅、酸菜鱼汤底、手工丸类、时蔬",
+  weight:18
+ },
+ {
+  id:"bugis-fish-head-steamboat",
+  name:"Bugis Fish Head Steamboat",
+  area:"Kelantan Lane / Bugis",
+  mrt:"Jalan Besar / Bugis",
+  cost:28,
+  tags:["中餐 / 炒菜","想喝汤 / 粥","离 MRT 近"],
+  dishes:"鱼头炉、蒙古排骨、炒青菜、豆腐",
+  weight:19
+ },
+ {
+  id:"nan-hwa-chong-fish-head",
+  name:"Nan Hwa Chong Fish Head Steamboat Corner",
+  area:"North Bridge Road / Bugis",
+  mrt:"Bugis / Nicoll Highway",
+  cost:35,
+  tags:["中餐 / 炒菜","想喝汤 / 粥","离 MRT 近"],
+  dishes:"鱼头炉、虾酱鸡、炒菜、豆腐",
+  weight:17
+ },
+ {
+  id:"kok-sen-chinatown",
+  name:"Kok Sen Restaurant",
+  area:"Keong Saik / Chinatown",
+  mrt:"Outram Park / Chinatown",
+  cost:42,
+  tags:["中餐 / 炒菜","清淡一点","离 MRT 近"],
+  dishes:"大虾河粉、砂锅酿豆腐、虾酱鸡、咕噜肉",
+  weight:16
+ },
+ {
+  id:"dong-bei-ren-jia",
+  name:"Dong Bei Ren Jia 东北人家",
+  area:"Chinatown",
+  mrt:"Chinatown",
+  cost:32,
+  tags:["中餐 / 炒菜","面条 / 饺子","离 MRT 近"],
+  dishes:"锅包肉、饺子、地三鲜、孜然羊肉、凉菜",
+  weight:18
+ },
+ {
+  id:"spring-court-chinatown",
+  name:"Spring Court Restaurant",
+  area:"Chinatown",
+  mrt:"Chinatown",
+  cost:45,
+  tags:["中餐 / 炒菜","粤菜 / 点心","离 MRT 近"],
+  dishes:"薄饼、烧鸡、河粉、豆腐、虾类小菜",
+  weight:12
+ },
+ {
+  id:"ah-loy-thai-bugis",
+  name:"Ah Loy Thai",
+  area:"Tan Quee Lan Street / Bugis",
+  mrt:"Bugis",
+  cost:28,
+  tags:["泰国菜","离 MRT 近"],
+  dishes:"Tom Yum、Pandan Chicken、Garlic Pork、Green Curry、Kang Kong",
+  weight:19
+ },
+ {
+  id:"sawadee-thai-bugis",
+  name:"Sawadee Thai Cuisine",
+  area:"Tan Quee Lan Street / Bugis",
+  mrt:"Bugis",
+  cost:42,
+  tags:["泰国菜","离 MRT 近"],
+  dishes:"Tom Kha Gai、Tom Yum、Thai Fish Cakes、Green Curry、Steamed Sea Bass",
+  weight:15
+ },
+ {
+  id:"yhingthai-palace",
+  name:"Yhingthai Palace",
+  area:"Purvis Street / Bugis-City Hall",
+  mrt:"Bugis / City Hall",
+  cost:45,
+  tags:["泰国菜","离 MRT 近"],
+  dishes:"Pomelo Salad、Green Curry、Pad Thai、Tom Yum、Thai-Chinese dishes",
+  weight:13
+ },
+ {
+  id:"co-hai-banh-mi",
+  name:"Co Hai Banh Mi & Pho",
+  area:"Beach Road / Bugis",
+  mrt:"Bugis / Nicoll Highway",
+  cost:22,
+  tags:["越南菜","清淡一点","面条 / 饺子","离 MRT 近"],
+  dishes:"Banh Mi、Pho、烤鸡檬粉、越南春卷、越南咖啡",
+  weight:18
+ },
+ {
+  id:"two-beo-vietnamese",
+  name:"2 Béo Vietnamese Restaurant",
+  area:"Bussorah Street / Bugis",
+  mrt:"Bugis / Nicoll Highway",
+  cost:24,
+  tags:["越南菜","清淡一点","面条 / 饺子","离 MRT 近"],
+  dishes:"Beef Pho、Banh Mi、Grilled Pork Rice、Summer Roll、越南咖啡",
+  weight:17
+ },
+ {
+  id:"may-pho-culture",
+  name:"May Pho Culture",
+  area:"Fook Hai Building / Chinatown",
+  mrt:"Chinatown",
+  cost:22,
+  tags:["越南菜","清淡一点","面条 / 饺子","离 MRT 近"],
+  dishes:"Beef Pho、Spring Rolls、Vietnamese Coffee、Bun dishes",
+  weight:16
+ },
+ {
+  id:"long-phung-chinatown",
+  name:"Long Phung Vietnamese Cuisine",
+  area:"New Bridge Road / Chinatown",
+  mrt:"Chinatown",
+  cost:24,
+  tags:["越南菜","清淡一点","面条 / 饺子","离 MRT 近"],
+  dishes:"Pho、Bun Thit Nuong、Spring Rolls、越南粉面饭",
+  weight:15
+ }
+];
 const $=s=>document.querySelector(s);
 let selectedFriend="",selectedMood="",personalRotation=0,finalRotation=0,spinning=false,currentResult=null,currentShareLink="",hostResults=loadHostResults();
 
