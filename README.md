@@ -36,11 +36,11 @@ https://marshal-lee9910.github.io/Dinner-wheel/
 
 **Friends / 参与成员：**
 
-* Simin
-* Ziyin
-* Hongyan
-* Eric
-* Dawn
+* person 1
+* person 2
+* person 3
+* person 4
+* person 5
 
 The default restaurant pool focuses on central Singapore areas, especially:
 
